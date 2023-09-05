@@ -1,0 +1,56 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plex-pv-config
+  namespace: plex
+spec:
+  capacity:
+    storage: 50Gi # adjust accordingly
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/path/to/plex/configuration/dir"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plex-pv-movies
+  namespace: plex
+spec:
+  capacity:
+    storage: 10Gi # adjust accordingly
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/path/to/Movies/dir"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plex-pv-series
+  namespace: plex
+spec:
+  capacity:
+    storage: 10Gi # adjust accordingly
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/path/to/TV-Series/dir"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plex-pv-other-media
+  namespace: plex
+spec:
+  capacity:
+    storage: 10Gi # adjust accordingly
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/path/to/other/Media/dir"

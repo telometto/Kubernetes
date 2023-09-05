@@ -1,0 +1,57 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plex-deployment
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: plex
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      containers:
+        - name: plex
+          image: linuxserver/plex:latest
+          # uncomment the lines below if you want to limit resource usage, but remember to adjust accordingly
+          #resources:
+          #  requests:
+          #    memory: "128Mi"
+          #    cpu: "250m"
+          #  limits:
+          #    memory: "8Gi"
+          #    cpu: "8000m"
+          envFrom:
+            - configMapRef:
+                name: plex-config
+          volumeMounts:
+            - name: plex-config
+              mountPath: /config
+            - name: plex-movies
+              mountPath: /movies
+            - name: plex-series
+              mountPath: /series
+            - name: plex-other-media
+              mountPath: /other-media
+            - name: dri # enable hardware acceleration for Intel iGPUs
+              mountPath: /dev/dri
+      volumes:
+        - name: plex-config
+          persistentVolumeClaim:
+            claimName: plex-pvc-config
+        - name: plex-movies
+          persistentVolumeClaim:
+            claimName: plex-pvc-movies
+        - name: plex-series
+          persistentVolumeClaim:
+            claimName: plex-pvc-series
+        - name: plex-other-media
+          persistentVolumeClaim:
+            claimName: plex-pvc-other-media
+        - name: dri # enable hardware acceleration for Intel iGPUs
+          hostPath:
+            path: /dev/dri

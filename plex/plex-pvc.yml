@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-pvc-config
+  namespace: plex
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi # adjust accordingly
+  volumeName: plex-pv-config
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-pvc-movies
+  namespace: plex
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi # adjust accordingly
+  volumeName: plex-pv-movies
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-pvc-series
+  namespace: plex
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi # adjust accordingly
+  volumeName: plex-pv-series
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-pvc-other-media
+  namespace: plex
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi # adjust accordingly
+  volumeName: plex-pv-other-media
