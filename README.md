@@ -49,7 +49,7 @@ To enable MetalLB, execute the following command:
 sudo microk8s enable metallb
 ```
 
-Upon activation, MetalLB will prompt you for an IP address range for service allocation. Ensure that the selected range does not conflict with IP addresses already in use by other devices or services. Typically, for small local networks, the IP range begins with 192.168.xxx.xxx. For instance, you might specify the range as 192.168.0.50-192.168.0.59.
+Upon activation, MetalLB will prompt you for an IP address range for service allocation. Ensure that the selected range does not conflict with IP addresses already in use by other devices or services. Typically, for small local networks, the IP range begins with `192.168.xxx.xxx`. For instance, you might specify the range as `192.168.0.50-192.168.0.59`.
 
 To confirm your current network configuration and available IP ranges, execute the following command:
 
