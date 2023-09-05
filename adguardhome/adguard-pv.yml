@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: adguard-pv-data
+  namespace: adguard
+spec:
+  capacity:
+    storage: 10Gi # adjust this to your needs
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/path/to/adguard/data"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: adguard-pv-conf
+  namespace: adguard
+spec:
+  capacity:
+    storage: 1Gi # adjust this to your needs
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/path/to/adguard/conf"

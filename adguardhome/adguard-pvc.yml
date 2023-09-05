@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: adguard-pvc-data
+  namespace: adguard
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi # adjust this to your needs
+  volumeName: adguard-pv-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: adguard-pvc-conf
+  namespace: adguard
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi # adjust this to your needs
+  volumeName: adguard-pv-conf

@@ -1,0 +1,88 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard-deployment
+  namespace: adguard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adguard
+  template:
+    metadata:
+      labels:
+        app: adguard
+    spec:
+      containers:
+        - name: adguard-home
+          image: adguard/adguardhome:latest
+          # uncomment the lines below if you want to limit resource usage, but remember to adjust accordingly
+          #resources:
+          #  requests:
+          #    memory: "128Mi"
+          #    cpu: "250m" # 0.25 cores
+          #  limits:
+          #    memory: "512Mi"
+          #    cpu: "2000m" # 2 cores
+          # uncomment the lines below if you want to use a bootstrapped config
+          #env:
+          #  - name: AGH_CONFIG
+          #    valueFrom:
+          #      configMapKeyRef:
+          #        name: adguard-config
+          #        key: AdGuardHome.yml
+          ports:
+            - containerPort: 53
+              name: dns-tcp
+              protocol: TCP
+            - containerPort: 53
+              name: dns-udp
+              protocol: UDP
+            - containerPort: 67
+              name: dhcp-one
+              protocol: UDP
+            - containerPort: 68
+              name: dhcp-two
+              protocol: TCP
+            - containerPort: 68
+              name: dhcp-three
+              protocol: UDP
+            - containerPort: 80
+              name: http-tcp
+              protocol: TCP
+            - containerPort: 443
+              name: doh-tcp
+              protocol: TCP
+            - containerPort: 443
+              name: doh-udp
+              protocol: UDP
+            - containerPort: 3000
+              name: http-initial
+            - containerPort: 784
+              name: doq-one
+              protocol: UDP
+            - containerPort: 853
+              name: dot
+              protocol: TCP
+            - containerPort: 853
+              name: doq-two
+              protocol: UDP
+            - containerPort: 5443
+              name: dnscrypt-tcp
+              protocol: TCP
+            - containerPort: 5443
+              name: dnscrypt-udp
+              protocol: UDP
+          volumeMounts:
+            - name: adguard-data
+              mountPath: /opt/adguardhome/work
+            - name: adguard-conf
+              mountPath: /opt/adguardhome/conf
+      volumes:
+        - name: adguard-data
+          persistentVolumeClaim:
+            claimName: adguard-pvc-data
+        - name: adguard-conf
+          persistentVolumeClaim:
+            claimName: adguard-pvc-conf
